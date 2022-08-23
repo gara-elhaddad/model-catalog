@@ -7,9 +7,9 @@ run_cypress_tests:
   stage: test
   rules:
     - changes:
-      - apps/validation_framework_v2/**/*
+      - apps/model_catalog/**/*
   script:
-    - cd apps/validation_framework_v2
+    - cd apps/model_catalog
     # install dependencies
     - npm ci
     # start server and run Cypress tests
@@ -33,7 +33,7 @@ build_apps_staging_image:
 build_apps_prod_image:
   stage: build
   rules:
-      - if: '$CI_COMMIT_REF_NAME == "master"'
+      - if: '$CI_COMMIT_REF_NAME == "main"'
         changes:
           - apps/**/*
   script:
