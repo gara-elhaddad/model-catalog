@@ -33,7 +33,7 @@ build_apps_staging_image:
 build_apps_prod_image:
   stage: build
   rules:
-      - if: '$CI_COMMIT_REF_NAME == "master"'
+      - if: '$CI_COMMIT_REF_NAME == "main"'
         changes:
           - apps/**/*
   script:
