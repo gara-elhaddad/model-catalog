@@ -17,16 +17,16 @@ run_cypress_tests:
   tags:
     - docker-runner
 
-build_apps_dev_image:
+build_apps_staging_image:
   stage: build
   rules:
-      - if: '$CI_COMMIT_REF_NAME == "development"'
+      - if: '$CI_COMMIT_REF_NAME == "staging"'
         changes:
           - apps/**/*
   script:
-    - docker build -f apps/deployment/Dockerfile.dev -t docker-registry.ebrains.eu/model-catalog/model-catalog-v2:dev ./apps
+    - docker build -f apps/deployment/Dockerfile.staging -t docker-registry.ebrains.eu/model-catalog/model-catalog-v2:staging ./apps
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_SECRET docker-registry.ebrains.eu
-    - docker push docker-registry.ebrains.eu/model-catalog/model-catalog-v2:dev
+    - docker push docker-registry.ebrains.eu/model-catalog/model-catalog-v2:staging
   tags:
     - shell-runner
 

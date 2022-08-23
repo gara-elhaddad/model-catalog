@@ -26,7 +26,7 @@ RUN npm run build
 
 # production environment
 FROM nginx:stable-alpine
-COPY deployment/nginx-app-dev.conf /etc/nginx/conf.d/default.conf
+COPY deployment/nginx-app-staging.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /model-catalog/build /usr/share/nginx/html/model-catalog
 COPY --from=build /curation-dashboard/build /usr/share/nginx/html/curation-dashboard
 EXPOSE 80
