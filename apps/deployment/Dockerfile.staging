@@ -10,7 +10,7 @@ WORKDIR /model-catalog
 ENV PATH /model-catalog/node_modules/.bin:$PATH
 COPY model_catalog/package.json ./
 COPY model_catalog/package-lock.json ./
-RUN npm ci --silent --legacy-peer-deps
+RUN npm ci --legacy-peer-deps
 
 COPY model_catalog ./
 RUN node --max-old-space-size=4096 `which npm` run build
