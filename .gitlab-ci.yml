@@ -7,9 +7,9 @@ run_cypress_tests:
   stage: test
   rules:
     - changes:
-      - apps/validation_framework_v2/**/*
+      - apps/model_catalog/**/*
   script:
-    - cd apps/validation_framework_v2
+    - cd apps/model_catalog
     # install dependencies
     - npm ci
     # start server and run Cypress tests

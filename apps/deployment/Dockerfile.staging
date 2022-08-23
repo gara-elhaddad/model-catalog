@@ -8,11 +8,11 @@ FROM node:16-alpine as build
 
 WORKDIR /model-catalog
 ENV PATH /model-catalog/node_modules/.bin:$PATH
-COPY validation_framework_v2/package.json ./
-COPY validation_framework_v2/package-lock.json ./
+COPY model_catalog/package.json ./
+COPY model_catalog/package-lock.json ./
 RUN npm ci --silent --legacy-peer-deps
 
-COPY validation_framework_v2 ./
+COPY model_catalog ./
 RUN node --max-old-space-size=4096 `which npm` run build
 
 WORKDIR /curation-dashboard
