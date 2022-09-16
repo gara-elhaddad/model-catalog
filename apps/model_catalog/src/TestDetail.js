@@ -388,7 +388,7 @@ class TestDetail extends React.Component {
                                 compareFlag={this.state.compareFlag}
                                 addTestCompare={this.addTestCompare}
                                 removeTestCompare={this.removeTestCompare}
-                            ></TestDetailHeader>
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <AppBar position="static">

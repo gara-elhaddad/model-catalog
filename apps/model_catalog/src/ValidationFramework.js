@@ -309,6 +309,7 @@ class ValidationFramework extends React.Component {
             modelData: updatedModelData,
             currentModel: updatedModel,
         });
+        updateHash("model_id." + updatedModel.id);
     }
 
     handleAddModelInstance(newModelInstance) {
@@ -365,6 +366,7 @@ class ValidationFramework extends React.Component {
             testData: updatedTestData,
             currentTest: updatedTest,
         });
+        updateHash("test_id." + updatedTest.id);
     }
 
     handleAddTestInstance(newTestInstance) {
