@@ -53,26 +53,26 @@ export default class TestAddForm extends React.Component {
             errorAddTest: null,
             isAliasNotUnique: true,
             aliasLoading: false,
-            name: "",
-            alias: "",
-            author: [],
-            description: "",
-            data_location: [],
-            data_type: "",
-            species: "",
-            brain_region: "",
-            cell_type: "",
-            test_type: "",
-            score_type: "",
-            recording_modality: "",
-            implementation_status: "",
+            name: this.props.duplicateData.name || "",
+            alias: this.props.duplicateData.alias || "",
+            author: this.props.duplicateData.author || [],
+            description: this.props.duplicateData.description || "",
+            data_location: this.props.duplicateData.data_location || [],
+            data_type: this.props.duplicateData.data_type || "",
+            species: this.props.duplicateData.species || "",
+            brain_region: this.props.duplicateData.brain_region || "",
+            cell_type: this.props.duplicateData.cell_type || "",
+            test_type: this.props.duplicateData.test_type || "",
+            score_type: this.props.duplicateData.score_type || "",
+            recording_modality: this.props.duplicateData.recording_modality || "",
+            implementation_status: this.props.duplicateData.implementation_status || "",
             instances: [
                 {
-                    version: "",
-                    repository: "",
-                    path: "",
-                    description: "",
-                    parameters: "",
+                    version: this.props.duplicateData.instances[0].version || "",
+                    repository: this.props.duplicateData.instances[0].repository || "",
+                    path: this.props.duplicateData.instances[0].path || "",
+                    description: this.props.duplicateData.instances[0].description || "",
+                    parameters: this.props.duplicateData.instances[0].parameters || "",
                 },
             ],
             auth: authContext,
@@ -90,7 +90,6 @@ export default class TestAddForm extends React.Component {
     }
 
     handleCancel() {
-        console.log("Hello");
         this.props.onClose();
     }
 
@@ -353,7 +352,7 @@ export default class TestAddForm extends React.Component {
                                     <TextField
                                         name="data_location"
                                         label="Data Location (URL)"
-                                        defaultValue=""
+                                        defaultValue={this.state.data_location}
                                         onBlur={this.handleFieldChange}
                                         variant="outlined"
                                         fullWidth={true}

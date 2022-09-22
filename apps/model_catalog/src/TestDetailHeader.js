@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddToQueueIcon from "@material-ui/icons/AddToQueue";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from "@material-ui/icons/Edit";
 import RemoveFromQueueIcon from "@material-ui/icons/RemoveFromQueue";
 import { withSnackbar } from "notistack";
@@ -10,6 +11,7 @@ import React from "react";
 import ContextMain from "./ContextMain";
 import ErrorDialog from "./ErrorDialog";
 import TestEditForm from "./TestEditForm";
+import TestAddForm from "./TestAddForm";
 import Theme from "./theme";
 import {
     copyToClipboard,
@@ -76,16 +78,24 @@ class TestDetailHeader extends React.Component {
 
         this.state = {
             openEditForm: false,
+            openDuplicateForm: false,
             errorEditTest: null,
+            errorDuplicateTest: null
         };
         this.handleEditTestFormClose = this.handleEditTestFormClose.bind(this);
+        this.handleDuplicateTestFormClose = this.handleDuplicateTestFormClose.bind(this);
         this.handleEditClick = this.handleEditClick.bind(this);
-        this.handleErrorEditDialogClose =
-            this.handleErrorEditDialogClose.bind(this);
+        this.handleDuplicateClick = this.handleDuplicateClick.bind(this);
+        this.handleErrorEditDialogClose = this.handleErrorEditDialogClose.bind(this);
+        this.handleErrorDuplicateDialogClose = this.handleErrorDuplicateDialogClose.bind(this);
     }
 
     handleErrorEditDialogClose() {
         this.setState({ errorEditTest: null });
+    }
+
+    handleErrorDuplicateDialogClose() {
+        this.setState({ errorDuplicateTest: null });
     }
 
     handleEditTestFormClose(test) {
@@ -103,9 +113,30 @@ class TestDetailHeader extends React.Component {
         }
     }
 
+    handleDuplicateTestFormClose(test) {
+        console.log("close duplicate");
+
+        this.setState({ openDuplicateForm: false });
+        if (test) {
+            this.props.updateCurrentTestData(test);
+            showNotification(
+                this.props.enqueueSnackbar,
+                this.props.closeSnackbar,
+                "Test duplicated!",
+                "success"
+            );
+        }
+    }
+
     handleEditClick() {
         this.setState({
             openEditForm: true,
+        });
+    }
+
+    handleDuplicateClick() {
+        this.setState({
+            openDuplicateForm: true,
         });
     }
 
@@ -123,6 +154,18 @@ class TestDetailHeader extends React.Component {
                 />
             );
         }
+        if (this.state.errorDuplicateTest) {
+            errorMessage = (
+                <ErrorDialog
+                    open={Boolean(this.state.errorDuplicateTest)}
+                    handleErrorDialogClose={this.handleErrorDuplicateDialogClose}
+                    error={
+                        this.state.errorDuplicateTest.message ||
+                        this.state.errorDuplicateTest
+                    }
+                />
+            );
+        }
 
         let editForm = "";
         if (this.state.openEditForm) {
@@ -131,6 +174,17 @@ class TestDetailHeader extends React.Component {
                     open={this.state.openEditForm}
                     onClose={this.handleEditTestFormClose}
                     testData={this.props.testData}
+                />
+            );
+        }
+
+        let duplicateForm = "";
+        if (this.state.openDuplicateForm) {
+            duplicateForm = (
+                <TestAddForm
+                    open={this.state.openDuplicateForm}
+                    onClose={this.handleDuplicateTestFormClose}
+                    duplicateData={this.props.testData}
                 />
             );
         }
@@ -163,6 +217,18 @@ class TestDetailHeader extends React.Component {
                                 }}
                             >
                                 <EditIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip placement="top" title="Duplicate Test">
+                            <IconButton
+                                aria-label="duplicate test"
+                                onClick={() => this.handleDuplicateClick()}
+                                style={{
+                                    backgroundColor: Theme.buttonPrimary,
+                                    marginLeft: 10,
+                                }}
+                            >
+                                <FileCopyIcon />
                             </IconButton>
                         </Tooltip>
                         <CompareIcon
@@ -249,6 +315,7 @@ class TestDetailHeader extends React.Component {
                 {/* optional image goes here */}
                 {/* </Grid> */}
                 <div>{editForm}</div>
+                <div>{duplicateForm}</div>
                 <div>{errorMessage}</div>
             </React.Fragment>
         );
