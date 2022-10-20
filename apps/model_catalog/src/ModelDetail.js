@@ -416,7 +416,7 @@ class ModelDetail extends React.Component {
                                 compareFlag={this.state.compareFlag}
                                 addModelCompare={this.addModelCompare}
                                 removeModelCompare={this.removeModelCompare}
-                            ></ModelDetailHeader>
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <AppBar position="static">

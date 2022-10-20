@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddToQueueIcon from "@material-ui/icons/AddToQueue";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from "@material-ui/icons/Edit";
 import LockIcon from "@material-ui/icons/Lock";
 import PublicIcon from "@material-ui/icons/Public";
@@ -12,6 +13,7 @@ import React from "react";
 import ContextMain from "./ContextMain";
 import ErrorDialog from "./ErrorDialog";
 import ModelEditForm from "./ModelEditForm";
+import ModelAddForm from "./ModelAddForm";
 import Theme from "./theme";
 import {
     copyToClipboard,
@@ -115,17 +117,24 @@ class ModelDetailHeader extends React.Component {
 
         this.state = {
             openEditForm: false,
+            openDuplicateForm: false,
             errorEditModel: null,
+            errorDuplicateModel: null,
         };
-        this.handleEditModelFormClose =
-            this.handleEditModelFormClose.bind(this);
+        this.handleEditModelFormClose = this.handleEditModelFormClose.bind(this);
+        this.handleDuplicateModelFormClose = this.handleDuplicateModelFormClose.bind(this);
         this.handleEditClick = this.handleEditClick.bind(this);
-        this.handleErrorEditDialogClose =
-            this.handleErrorEditDialogClose.bind(this);
+        this.handleDuplicateClick = this.handleDuplicateClick.bind(this);
+        this.handleErrorEditDialogClose = this.handleErrorEditDialogClose.bind(this);
+        this.handleErrorDuplicateDialogClose = this.handleErrorDuplicateDialogClose.bind(this);
     }
 
     handleErrorEditDialogClose() {
         this.setState({ errorEditModel: null });
+    }
+
+    handleErrorDuplicateDialogClose() {
+        this.setState({ errorDuplicateModel: null });
     }
 
     handleEditModelFormClose(model) {
@@ -143,9 +152,30 @@ class ModelDetailHeader extends React.Component {
         }
     }
 
+    handleDuplicateModelFormClose(model) {
+        console.log("close duplicate");
+
+        this.setState({ openDuplicateForm: false });
+        if (model) {
+            this.props.updateCurrentModelData(model);
+            showNotification(
+                this.props.enqueueSnackbar,
+                this.props.closeSnackbar,
+                "Model duplicated!",
+                "success"
+            );
+        }
+    }
+
     handleEditClick() {
         this.setState({
             openEditForm: true,
+        });
+    }
+
+    handleDuplicateClick() {
+        this.setState({
+            openDuplicateForm: true,
         });
     }
 
@@ -163,6 +193,18 @@ class ModelDetailHeader extends React.Component {
                 />
             );
         }
+        if (this.state.errorDuplicateModel) {
+            errorMessage = (
+                <ErrorDialog
+                    open={Boolean(this.state.errorDuplicateModel)}
+                    handleErrorDialogClose={this.handleErrorDuplicateDialogClose}
+                    error={
+                        this.state.errorDuplicateModel.message ||
+                        this.state.errorDuplicateModel
+                    }
+                />
+            );
+        }
 
         let editForm = "";
         if (this.state.openEditForm) {
@@ -171,6 +213,17 @@ class ModelDetailHeader extends React.Component {
                     open={this.state.openEditForm}
                     onClose={this.handleEditModelFormClose}
                     modelData={this.props.modelData}
+                />
+            );
+        }
+
+        let duplicateForm = "";
+        if (this.state.openDuplicateForm) {
+            duplicateForm = (
+                <ModelAddForm
+                    open={this.state.openDuplicateForm}
+                    onClose={this.handleDuplicateModelFormClose}
+                    duplicateData={this.props.modelData}
                 />
             );
         }
@@ -198,6 +251,18 @@ class ModelDetailHeader extends React.Component {
                             canEdit={this.props.canEdit}
                             handleEditClick={this.handleEditClick}
                         />
+                        <Tooltip placement="top" title="Duplicate Model">
+                            <IconButton
+                                aria-label="duplicate model"
+                                onClick={() => this.handleDuplicateClick()}
+                                style={{
+                                    backgroundColor: Theme.buttonPrimary,
+                                    marginLeft: 10,
+                                }}
+                            >
+                                <FileCopyIcon />
+                            </IconButton>
+                        </Tooltip>
                         <CompareIcon
                             compareFlag={this.props.compareFlag}
                             addModelCompare={this.props.addModelCompare}
@@ -275,6 +340,7 @@ class ModelDetailHeader extends React.Component {
                 {/* optional image goes here */}
                 {/* </Grid> */}
                 <div>{editForm}</div>
+                <div>{duplicateForm}</div>
                 <div>{errorMessage}</div>
             </React.Fragment>
         );

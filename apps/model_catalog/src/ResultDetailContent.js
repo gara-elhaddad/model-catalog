@@ -19,7 +19,7 @@ import { copyToClipboard, formatTimeStampToLongString } from "./utils";
 // }
 
 function ResultParameter(props) {
-    if (props.value) {
+    if (props.value !== null) {
         return (
             <Grid item xs={12}>
                 <Typography variant="body2">
