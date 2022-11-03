@@ -359,6 +359,8 @@ class TestDetail extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const [status] = this.context.status;
+
         return (
             <Dialog
                 fullScreen
@@ -445,6 +447,7 @@ class TestDetail extends React.Component {
                                             removeTestInstanceCompare={
                                                 this.removeTestInstanceCompare
                                             }
+                                            canEdit={status.includes("read-only") ? false : true}
                                         />
                                     </Grid>
                                     <Grid item xs={3}>

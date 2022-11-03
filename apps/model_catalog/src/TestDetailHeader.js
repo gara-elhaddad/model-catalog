@@ -13,11 +13,57 @@ import ErrorDialog from "./ErrorDialog";
 import TestEditForm from "./TestEditForm";
 import TestAddForm from "./TestAddForm";
 import Theme from "./theme";
+import WarningBox from "./WarningBox";
 import {
     copyToClipboard,
     formatTimeStampToLongString,
     showNotification,
 } from "./utils";
+
+
+function EditButton(props) {
+    if (props.canEdit) {
+        return (
+            <Tooltip placement="top" title="Edit Test">
+                <IconButton
+                    aria-label="edit test"
+                    onClick={() => props.handleEditClick()}
+                    style={{
+                        backgroundColor: Theme.buttonPrimary,
+                        marginLeft: 10,
+                    }}
+                >
+                    <EditIcon />
+                </IconButton>
+            </Tooltip>
+        );
+    } else {
+        return "";
+    }
+}
+
+
+function DuplicateButton(props) {
+    if (props.canDuplicate) {
+        return (
+            <Tooltip placement="top" title="Duplicate Test">
+                <IconButton
+                    aria-label="duplicate test"
+                    onClick={() => props.handleDuplicateClick()}
+                    style={{
+                        backgroundColor: Theme.buttonPrimary,
+                        marginLeft: 10,
+                    }}
+                >
+                    <FileCopyIcon />
+                </IconButton>
+            </Tooltip>
+        );
+    } else {
+        return "";
+    }
+}
+
 
 function CompareIcon(props) {
     if (props.compareFlag === null) {
@@ -189,8 +235,11 @@ class TestDetailHeader extends React.Component {
             );
         }
 
+        const [status] = this.context.status;
+
         return (
             <React.Fragment>
+                <WarningBox message={status} />
                 <Grid item>
                     <Typography variant="h4" gutterBottom>
                         <span
@@ -207,30 +256,14 @@ class TestDetailHeader extends React.Component {
                             {" "}
                             {this.props.name}
                         </span>
-                        <Tooltip placement="top" title="Edit Test">
-                            <IconButton
-                                aria-label="edit test"
-                                onClick={() => this.handleEditClick()}
-                                style={{
-                                    backgroundColor: Theme.buttonPrimary,
-                                    marginLeft: 10,
-                                }}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip placement="top" title="Duplicate Test">
-                            <IconButton
-                                aria-label="duplicate test"
-                                onClick={() => this.handleDuplicateClick()}
-                                style={{
-                                    backgroundColor: Theme.buttonPrimary,
-                                    marginLeft: 10,
-                                }}
-                            >
-                                <FileCopyIcon />
-                            </IconButton>
-                        </Tooltip>
+                        <EditButton
+                            canEdit={status.includes("read-only") ? false : true}
+                            handleEditClick={this.handleEditClick}
+                        />
+                        <DuplicateButton
+                            canDuplicate={status.includes("read-only") ? false : true}
+                            handleDuplicateClick={this.handleDuplicateClick}
+                        />
                         <CompareIcon
                             compareFlag={this.props.compareFlag}
                             addTestCompare={this.props.addTestCompare}
