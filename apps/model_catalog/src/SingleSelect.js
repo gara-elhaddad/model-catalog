@@ -43,6 +43,7 @@ export default function SingleSelect(props) {
                     labelId={fieldLabelId}
                     id={fieldId}
                     name={fieldName}
+                    value={props.value ? props.value : ""}
                     options={props.itemNames}
                     style={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label={formatLabel(props.label)} />}
