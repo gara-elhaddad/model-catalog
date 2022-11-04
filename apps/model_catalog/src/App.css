@@ -43,6 +43,10 @@ input {
   overflow: hidden;
 }
 
+.warning {
+  background: linear-gradient(0.25turn, #ffbb00, #ffe100);
+}
+
 .smallbox {
   /* background: #00C959; */
   background: linear-gradient(0.25turn, #00A595, #9CE142);

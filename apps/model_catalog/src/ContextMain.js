@@ -9,6 +9,7 @@ const ContextMainProvider = (props) => {
     const [validFilterValues, setValidFilterValues] = React.useState(null);
     const [compareModels, setCompareModels] = React.useState({});
     const [compareTests, setCompareTests] = React.useState({});
+    const [status, setStatus] = React.useState("");
 
     return (
         <ContextMain.Provider
@@ -18,6 +19,7 @@ const ContextMainProvider = (props) => {
                 validFilterValues: [validFilterValues, setValidFilterValues],
                 compareModels: [compareModels, setCompareModels],
                 compareTests: [compareTests, setCompareTests],
+                status: [status, setStatus]
             }}
         >
             {props.children}

@@ -197,12 +197,14 @@ function PlotGraph(props) {
   );
 }
 
+
 class Introduction extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
-      stats: null,
+      stats: null
     };
   }
 
@@ -238,6 +240,7 @@ class Introduction extends React.Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <React.Fragment>
 
@@ -277,7 +280,6 @@ class Introduction extends React.Component {
         >
           abcde
         </div> */}
-
 
         <Grid container spacing={3} className={classes.body}>
           <Grid item xs={6} style={{ paddingTop: 0 }}>

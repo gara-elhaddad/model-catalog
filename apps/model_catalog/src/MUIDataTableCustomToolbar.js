@@ -4,13 +4,34 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FlipIcon from "@material-ui/icons/Flip";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
+import ContextMain from "./ContextMain";
 
 const defaultToolbarStyles = {
     iconButton: {},
 };
 
 class CustomToolbar extends React.Component {
+    static contextType = ContextMain;
+
     render() {
+        const [status] = this.context.status;
+        let addNewVersionButton = "";
+        if (!status.includes("read-only")) {
+            addNewVersionButton = (
+                <Tooltip
+                    title={
+                        this.props.tableType === "models"
+                            ? "Add New Model"
+                            : "Add New Test"
+                    }
+                >
+                    <IconButton onClick={this.props.addNew}>
+                        <AddIcon />
+                    </IconButton>
+                </Tooltip>
+            );
+        }
+
         if (this.props.display === "Models and Tests") {
             return (
                 <React.Fragment>
@@ -19,33 +40,13 @@ class CustomToolbar extends React.Component {
                             <FlipIcon />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip
-                        title={
-                            this.props.tableType === "models"
-                                ? "Add New Model"
-                                : "Add New Test"
-                        }
-                    >
-                        <IconButton onClick={this.props.addNew}>
-                            <AddIcon />
-                        </IconButton>
-                    </Tooltip>
+                    {addNewVersionButton}
                 </React.Fragment>
             );
         } else {
             return (
                 <React.Fragment>
-                    <Tooltip
-                        title={
-                            this.props.tableType === "models"
-                                ? "Add New Model"
-                                : "Add New Test"
-                        }
-                    >
-                        <IconButton onClick={this.props.addNew}>
-                            <AddIcon />
-                        </IconButton>
-                    </Tooltip>
+                    {addNewVersionButton}
                 </React.Fragment>
             );
         }

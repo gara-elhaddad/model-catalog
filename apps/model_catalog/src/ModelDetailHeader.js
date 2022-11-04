@@ -14,6 +14,7 @@ import ContextMain from "./ContextMain";
 import ErrorDialog from "./ErrorDialog";
 import ModelEditForm from "./ModelEditForm";
 import ModelAddForm from "./ModelAddForm";
+import WarningBox from "./WarningBox";
 import Theme from "./theme";
 import {
     copyToClipboard,
@@ -101,6 +102,27 @@ function EditButton(props) {
                     }}
                 >
                     <EditIcon />
+                </IconButton>
+            </Tooltip>
+        );
+    } else {
+        return "";
+    }
+}
+
+function DuplicateButton(props) {
+    if (props.canDuplicate) {
+        return (
+            <Tooltip placement="top" title="Duplicate Model">
+                <IconButton
+                    aria-label="duplicate model"
+                    onClick={() => props.handleDuplicateClick()}
+                    style={{
+                        backgroundColor: Theme.buttonPrimary,
+                        marginLeft: 10,
+                    }}
+                >
+                    <FileCopyIcon />
                 </IconButton>
             </Tooltip>
         );
@@ -228,8 +250,11 @@ class ModelDetailHeader extends React.Component {
             );
         }
 
+        const [status] = this.context.status;
+
         return (
             <React.Fragment>
+                <WarningBox message={status} />
                 <Grid item>
                     <Typography variant="h4" gutterBottom>
                         <AccessibilityIcon private={this.props.private} />
@@ -251,18 +276,10 @@ class ModelDetailHeader extends React.Component {
                             canEdit={this.props.canEdit}
                             handleEditClick={this.handleEditClick}
                         />
-                        <Tooltip placement="top" title="Duplicate Model">
-                            <IconButton
-                                aria-label="duplicate model"
-                                onClick={() => this.handleDuplicateClick()}
-                                style={{
-                                    backgroundColor: Theme.buttonPrimary,
-                                    marginLeft: 10,
-                                }}
-                            >
-                                <FileCopyIcon />
-                            </IconButton>
-                        </Tooltip>
+                        <DuplicateButton
+                            canDuplicate={status.includes("read-only") ? false : true}
+                            handleDuplicateClick={this.handleDuplicateClick}
+                        />
                         <CompareIcon
                             compareFlag={this.props.compareFlag}
                             addModelCompare={this.props.addModelCompare}
