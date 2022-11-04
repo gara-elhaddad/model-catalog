@@ -242,6 +242,19 @@ class TestDetailContent extends React.Component {
             );
         }
 
+        let addNewVersionButton = "";
+        if (this.props.canEdit) {
+            addNewVersionButton = (
+                <Button
+                    variant="contained"
+                    style={{ backgroundColor: Theme.buttonPrimary }}
+                    onClick={() => this.setState({ openAddInstanceForm: true })}
+                >
+                    Add new version
+                </Button>
+            );
+        }
+
         return (
             <React.Fragment>
                 {}
@@ -292,19 +305,7 @@ class TestDetailContent extends React.Component {
                                 </Typography>
                             </Grid>
                             <Grid container item justify="flex-end" xs={6}>
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        backgroundColor: Theme.buttonPrimary,
-                                    }}
-                                    onClick={() =>
-                                        this.setState({
-                                            openAddInstanceForm: true,
-                                        })
-                                    }
-                                >
-                                    Add new version
-                                </Button>
+                                {addNewVersionButton}
                             </Grid>
                         </Grid>
                         {this.props.instances.length === 0
@@ -357,7 +358,7 @@ class TestDetailContent extends React.Component {
                                                       </span>
                                                   </p>
                                                   {this.state
-                                                      .instancesWithResults && (
+                                                      .instancesWithResults && this.props.canEdit && (
                                                       <Tooltip
                                                           placement="top"
                                                           title={

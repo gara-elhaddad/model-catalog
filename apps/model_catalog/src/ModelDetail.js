@@ -142,7 +142,7 @@ class ModelDetail extends React.Component {
         if (!DevMode) {
             this.getExtendedData();
             this.getModelResults();
-            this.checkEditAccess();
+            this.checkEditAccess(this.context.status);
         }
     }
 
@@ -361,7 +361,11 @@ class ModelDetail extends React.Component {
             });
     }
 
-    checkEditAccess() {
+    checkEditAccess(status) {
+        const [statusMessage] = status;
+        if (statusMessage.includes("read-only")) {
+            return
+        }
         let model = this.props.modelData;
         console.log("Checking edit access");
         datastore

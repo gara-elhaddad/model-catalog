@@ -41,11 +41,13 @@ import {
     displayValid,
     queryValid,
     updateHash,
+    baseUrl
 } from "./globals";
 import { isUUID, showNotification } from "./utils";
 import ContextMain from "./ContextMain";
 import Theme from "./theme";
 import { withSnackbar } from "notistack";
+import WarningBox from "./WarningBox";
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;
@@ -390,6 +392,11 @@ class ValidationFramework extends React.Component {
 
         const [, setAuthContext] = this.context.auth;
         setAuthContext(this.props.auth);
+
+        const [, setStatus] = this.context.status;
+        axios.get(baseUrl).then(response => {
+            setStatus(response.data.status)
+        });
 
         datastore
             .getValidFilterValues()
@@ -1111,6 +1118,8 @@ class ValidationFramework extends React.Component {
             );
         }
 
+        const [status] = this.context.status;
+
         return (
             <React.Fragment>
                 <div>
@@ -1168,6 +1177,7 @@ class ValidationFramework extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <WarningBox message={status} />
                     <div style={{ paddingLeft: "15px", paddingRight: "15px", paddingBottom: "10px" }}>
                         {configContent}
                     </div>
