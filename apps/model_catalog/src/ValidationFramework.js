@@ -48,6 +48,7 @@ import ContextMain from "./ContextMain";
 import Theme from "./theme";
 import { withSnackbar } from "notistack";
 import WarningBox from "./WarningBox";
+import AuthWidget from "./AuthWidget";
 
 // if working on the appearance/layout set globals.DevMode=true
 // to avoid loading the models and tests over the network every time;
@@ -129,6 +130,7 @@ class ValidationFramework extends React.Component {
         this.state = {
             modelData: [],
             testData: [],
+            currentUser: null,
             currentModel: null,
             currentTest: null,
             currentResult: null,
@@ -1174,6 +1176,10 @@ class ValidationFramework extends React.Component {
                                         </IconButton>
                                     </a>
                                 </Tooltip>
+                                <AuthWidget
+                                    currentUser={this.state.currentUser}
+                                    setCurrentUser={(user) => this.setState({currentUser: user})}
+                                />
                             </div>
                         </div>
                     </div>

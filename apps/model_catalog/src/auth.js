@@ -16,7 +16,8 @@ const YOUR_APP_SCOPES = 'team email profile';   // full list at https://iam.ebra
 export default function initAuth(main) {
     console.log('DOM content is loaded, initialising Keycloak client...');
     keycloak
-        .init({ flow: 'standard', pkceMethod: 'S256' })
+        //.init({ flow: 'standard', pkceMethod: 'S256' })
+        .init({ flow: 'implicit' })
         .then(() => checkAuth(main))
         .catch(console.log);
 }
@@ -51,11 +52,11 @@ function checkAuth(main) {
     if (isStandaloneApp) {
         console.log('This is a standalone app...');
         if (isAnonymous) {
-            console.log('...which is not authenticated, starting login...');
-            return login(YOUR_APP_SCOPES);
+            console.log('...which is not authenticated, starting app without authentication')
+            return main(keycloak);
         }
         if (isAuthenticated) {
-            console.log('...which is authenticated, starting business logic...');
+            console.log('...which is authenticated, starting app with authentication');
             return main(keycloak);
         }
     }
