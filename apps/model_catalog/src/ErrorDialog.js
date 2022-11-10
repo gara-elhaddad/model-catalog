@@ -6,6 +6,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { reformatErrorMessage } from "./utils";
+import ContextMain from "./ContextMain";
+
 
 const addLineBreaks = (string) =>
     string.split("\n").map((text, index) => (
@@ -15,8 +17,26 @@ const addLineBreaks = (string) =>
         </React.Fragment>
     ));
 
+
 export default function ErrorDialog(props) {
     console.log("ErrorDialog: " + props.error);
+    const context = React.useContext(ContextMain);
+    const [auth] = context.auth;
+
+    let loginButton = "";
+    if (props.showLoginButton) {
+        loginButton = (
+            <Button
+                color="primary"
+                disableElevation
+                size="small"
+                onClick={() => auth.login({redirectUri: props.redirectUri})} // todo: login with scopes
+            >
+                Login
+            </Button>
+        )
+    }
+
     return (
         <Dialog
             open={props.open}
@@ -32,8 +52,12 @@ export default function ErrorDialog(props) {
                         ? addLineBreaks(props.error)
                         : addLineBreaks(reformatErrorMessage(props.error))}
                 </Typography>
+                <Typography variant="body2" gutterBottom>
+                    {props.additionalMessage}
+                </Typography>
             </DialogContent>
             <DialogActions>
+                {loginButton}
                 <Button onClick={props.handleErrorDialogClose} color="primary">
                     Close
                 </Button>

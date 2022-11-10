@@ -212,6 +212,7 @@ class ValidationFramework extends React.Component {
         this.handleTestRowClick = this.handleTestRowClick.bind(this);
         this.openConfig = this.openConfig.bind(this);
         this.handleConfigClose = this.handleConfigClose.bind(this);
+        this.handleFeaturedModelClick = this.handleFeaturedModelClick.bind(this);
         this.handleErrorGetDialogClose =
             this.handleErrorGetDialogClose.bind(this);
         this.handleErrorUpdateDialogClose =
@@ -517,7 +518,7 @@ class ValidationFramework extends React.Component {
                         errorGet: error_message,
                     });
                 }
-                updateHash("");
+                //updateHash("");
             });
     }
 
@@ -779,6 +780,11 @@ class ValidationFramework extends React.Component {
         }
     }
 
+    handleFeaturedModelClick(modelId) {
+       updateHash("model_id." + modelId);
+       this.getModel("model_id", modelId);
+    }
+
     handleModelRowClick(rowData, rowMeta) {
         // Note: last element of MUIDataTable (in ModelTable.js) is set to json Object of entry
         this.setState({ currentModel: rowData[rowData.length - 1] });
@@ -1021,11 +1027,22 @@ class ValidationFramework extends React.Component {
             return this.renderLoading();
         }
         if (this.state.errorGet) {
+            console.log(this.state.errorGet);
+            const errorMsg = this.state.errorGet.message || this.state.errorGet;
+            let showLoginButton = false;
+            let additionalMessage = "";
+            if (errorMsg.includes("not found")) {
+                showLoginButton = true;
+                additionalMessage = "You may need to be logged in to access this resource";
+            }
             return (
                 <ErrorDialog
                     open={Boolean(this.state.errorGet)}
                     handleErrorDialogClose={this.handleErrorGetDialogClose}
-                    error={this.state.errorGet.message || this.state.errorGet}
+                    error={errorMsg}
+                    showLoginButton={showLoginButton}
+                    redirectUri={"/" + window.location.hash}
+                    additionalMessage={additionalMessage}
                 />
             );
         }
@@ -1042,7 +1059,7 @@ class ValidationFramework extends React.Component {
         }
         if (filtersEmpty(this.state.filters)) {
             configContent = "";
-            mainContent = <Introduction handleConfig={this.handleConfigClose} />;
+            mainContent = <Introduction handleConfig={this.handleConfigClose} handleSelectFeaturedModel={this.handleFeaturedModelClick} />;
         } else {
             configContent = (
                 <ConfigDisplaySimple
