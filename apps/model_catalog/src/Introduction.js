@@ -401,7 +401,7 @@ class Introduction extends React.Component {
               <MediaCard
                 id="3772094a-8e2d-4075-8f05-9be62c8d8a5d"
                 image_title={"Golding_et_al_2001_dichotomy"}
-                title={"Golding_et_al_2001_dichotomy"}
+                title={"Dichotomy of action-potential backpropagation in CA1 pyramidal neuron dendrites (Golding et al 2001)"}
                 citation={
                   "Nace L. Golding, William L. Kath, Nelson Spruston, Sára Sáray"
                 }
@@ -409,7 +409,7 @@ class Introduction extends React.Component {
               <MediaCard
                 id="528ec0e6-2f21-413c-9abd-d131f7150882"
                 image_title={"CA1_Bianchi_2012"}
-                title={"CA1_Bianchi_2012"}
+                title={"Mechanisms of the depolarization block in CA1 pyramidal neurons - Bianchi et al., 2012"}
                 citation={
                   "Daniela Bianchi, Addolorata Marasco, Alessandro Limongiello, Cristina Marchetti, Hélène Marie, Brunello Tirozzi, Michele Migliore, Sára Sáray"
                 }
@@ -422,12 +422,8 @@ class Introduction extends React.Component {
               />
               <MediaCard
                 id="1ccc23ec-d3a6-43b6-b96f-41e9c4221a15"
-                image_title={
-                  "SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"
-                }
-                title={
-                  "SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"
-                }
+                image_title={"SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"}
+                title={"SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"}
                 citation={
                   "Petruț Antoniu Bogdan, Beatrice Marcinnò, Claudia Casellato, Stefano Casali, Andrew G. D. Rowley, Michael Hopkins, Francesco Leporati, Egidio D'Angelo, Oliver Rhodes"
                 }
