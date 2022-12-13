@@ -466,7 +466,7 @@ class Introduction extends React.Component {
               spacing={2}
               direction="row"
               alignItems="center"
-              justify="center"
+              justifyContent="center"
             >
               {[
                 "species",

@@ -2210,7 +2210,7 @@ class CompareMultiResults extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Grid container justify="space-around" spacing={3}>
+                            <Grid container justifyContent="space-around" spacing={3}>
                                 {/* Model listing */}
                                 <Grid
                                     item

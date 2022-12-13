@@ -143,7 +143,7 @@ class ResultFile extends React.Component {
                     >
                         <Grid
                             container
-                            justify="space-between"
+                            justifyContent="space-between"
                             align-items="center"
                             fontSize={16}
                             my={0}
