@@ -15,8 +15,9 @@ class CustomToolbar extends React.Component {
 
     render() {
         const [status] = this.context.status;
+        const [auth] = this.context.auth;
         let addNewVersionButton = "";
-        if (!status.includes("read-only")) {
+        if (auth.authenticated && !status.includes("read-only")) {
             addNewVersionButton = (
                 <Tooltip
                     title={
