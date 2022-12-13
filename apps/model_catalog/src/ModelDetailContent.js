@@ -23,6 +23,18 @@ import {
 } from "./utils";
 import Avatar from "@material-ui/core/Avatar";
 
+
+function getDownloadURL(source_url) {
+    const url_obj = new URL(source_url)
+    if (url_obj.hostname === "object.cscs.ch") {
+        const prefix = url_obj.searchParams.get("prefix")
+        if (prefix) {
+            return `${url_obj.origin}${url_obj.pathname}/${prefix}`;
+        }
+    }
+    return source_url;
+}
+
 function openBlueNaaS(model_inst_url) {
     let match = model_inst_url.match(
         /https:\/\/object\.cscs\.ch\/v1\/AUTH_([^]+?)\//gi
@@ -522,7 +534,7 @@ class ModelDetailContent extends React.Component {
                                                   >
                                                       <IconButton
                                                           aria-label="download code"
-                                                          href={instance.source}
+                                                          href={getDownloadURL(instance.source)}
                                                       >
                                                           <CloudDownloadIcon />
                                                       </IconButton>
