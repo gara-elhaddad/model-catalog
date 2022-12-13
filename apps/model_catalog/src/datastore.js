@@ -353,17 +353,11 @@ class DataStore {
         if (this.projects.length > 0) {
             return this.projects;
         } else {
-            const url = this.baseUrl + "/projects";
+            const url = this.baseUrl + "/projects?only_editable=true";
             return this.get(url, source)
                 .then((res) => {
-                    let editableProjects = [];
-                    res.data.forEach((proj) => {
-                        if (proj.permissions.UPDATE) {
-                            editableProjects.push(proj.project_id);
-                        }
-                    });
-                    editableProjects.sort();
-                    this.projects = editableProjects;
+                    this.projects = res.data;
+                    console.log(this.projects);
                     return this.projects;
                 })
                 .catch((err) => {
