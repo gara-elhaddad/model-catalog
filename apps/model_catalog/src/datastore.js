@@ -356,8 +356,11 @@ class DataStore {
             const url = this.baseUrl + "/projects?only_editable=true";
             return this.get(url, source)
                 .then((res) => {
-                    this.projects = res.data;
-                    console.log(this.projects);
+                    let projectNames = [];
+                    res.data.forEach((proj) => {
+                        projectNames.push(proj.project_id);
+                    });
+                    this.projects = projectNames;
                     return this.projects;
                 })
                 .catch((err) => {
