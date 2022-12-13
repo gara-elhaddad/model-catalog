@@ -49,34 +49,39 @@ export default class ModelAddForm extends React.Component {
         const [validFilterValuesContext] = this.context.validFilterValues;
         const [filtersContext] = this.context.filters;
 
+        let sourceData = {instances: [{}]}
+        if (this.props.duplicateData) {
+            sourceData = this.props.duplicateData;
+        }
+
         this.state = {
             // NOTE: cannot use nested state object owing to performance issues:
             // See: https://dev.to/walecloud/updating-react-nested-state-properties-ga6
             errorAddModel: null,
             isAliasNotUnique: true,
             aliasLoading: false,
-            name: this.props.duplicateData.name || "",
-            alias: this.props.duplicateData.alias || "",
-            author: this.props.duplicateData.author || [],
-            owner: this.props.duplicateData.owner || [],
-            private: this.props.duplicateData.private || false,
-            project_id: this.props.duplicateData.project_id || "",
-            description: this.props.duplicateData.description || "",
-            species: this.props.duplicateData.species || "",
-            brain_region: this.props.duplicateData.brain_region || "",
-            cell_type: this.props.duplicateData.cell_type || "",
-            model_scope: this.props.duplicateData.model_scope || "",
-            abstraction_level: this.props.duplicateData.abstraction_level || "",
-            organization: this.props.duplicateData.organization || "",
+            name: sourceData.name || "",
+            alias: sourceData.alias || "",
+            author: sourceData.author || [],
+            owner: sourceData.owner || [],
+            private: sourceData.private || false,
+            project_id: sourceData.project_id || "",
+            description: sourceData.description || "",
+            species: sourceData.species || "",
+            brain_region: sourceData.brain_region || "",
+            cell_type: sourceData.cell_type || "",
+            model_scope: sourceData.model_scope || "",
+            abstraction_level: sourceData.abstraction_level || "",
+            organization: sourceData.organization || "",
             instances: [
                 {
-                    version: this.props.duplicateData.instances[0].version || "",
-                    description: this.props.duplicateData.instances[0].description || "",
-                    parameters: this.props.duplicateData.instances[0].parameters || "",
-                    morphology: this.props.duplicateData.instances[0].morphology || "",
-                    source: this.props.duplicateData.instances[0].source || "",
-                    code_format: this.props.duplicateData.instances[0].code_format || "",
-                    license: this.props.duplicateData.instances[0].license || "",
+                    version: sourceData.instances[0].version || "",
+                    description: sourceData.instances[0].description || "",
+                    parameters: sourceData.instances[0].parameters || "",
+                    morphology: sourceData.instances[0].morphology || "",
+                    source: sourceData.instances[0].source || "",
+                    code_format: sourceData.instances[0].code_format || "",
+                    license: sourceData.instances[0].license || "",
                 },
             ],
             auth: authContext,
@@ -85,6 +90,7 @@ export default class ModelAddForm extends React.Component {
             loading: false,
             projects: [],
         };
+
         this.getProjectList();
         this.handleErrorAddDialogClose =
             this.handleErrorAddDialogClose.bind(this);
@@ -131,6 +137,8 @@ export default class ModelAddForm extends React.Component {
                 this.setState({
                     projects: editableProjects,
                 });
+                console.log("Setting projects");
+                console.log(editableProjects);
             })
             .catch((err) => {
                 console.log("Error: ", err.message);
