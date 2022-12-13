@@ -13,6 +13,7 @@ COPY model_catalog/package-lock.json ./
 RUN npm ci --legacy-peer-deps
 
 COPY model_catalog ./
+COPY model_catalog/src/globals-staging.js ./src/globals.js
 RUN node --max-old-space-size=4096 `which npm` run build
 
 WORKDIR /curation-dashboard
