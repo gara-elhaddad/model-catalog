@@ -1,4 +1,4 @@
-export const baseUrl = "https://validation-v2.brainsimulation.eu";
+export const baseUrl = "https://validation.brainsimulation.eu";
 
 export const codeLocationPatterns = {
     "https://object.cscs.ch": "CSCS",
