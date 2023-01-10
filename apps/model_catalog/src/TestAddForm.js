@@ -77,7 +77,7 @@ export default class TestAddForm extends React.Component {
                     repository: sourceData.instances[0].repository || "",
                     path: sourceData.instances[0].path || "",
                     description: sourceData.instances[0].description || "",
-                    parameters: sourceData.instances[0].parameters || "",
+                    parameters: sourceData.instances[0].parameters || null,
                 },
             ],
             auth: authContext,

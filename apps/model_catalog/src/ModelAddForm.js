@@ -77,7 +77,7 @@ export default class ModelAddForm extends React.Component {
                 {
                     version: sourceData.instances[0].version || "",
                     description: sourceData.instances[0].description || "",
-                    parameters: sourceData.instances[0].parameters || "",
+                    parameters: sourceData.instances[0].parameters || null,
                     morphology: sourceData.instances[0].morphology || "",
                     source: sourceData.instances[0].source || "",
                     code_format: sourceData.instances[0].code_format || "",
