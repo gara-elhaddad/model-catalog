@@ -1,12 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { formatLabel } from "./utils";
 
@@ -21,73 +18,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
-
 export default function SingleSelect(props) {
     const classes = useStyles();
     const fieldId = "select-" + props.label.replace(" ", "-");
-    const fieldLabelId = fieldId + "-label";
     const fieldName = props.name || props.label.toLowerCase().replace(" ", "_");
+    const ref = React.useRef();
+
+    const handleChange = (event, value) => {
+        const name = ref.current.getAttribute("name");
+        props.handleChange({target: {name: name, value: value}});
+    };
 
     return (
         <div>
             <FormControl className={classes.formControl}>
-                <InputLabel id={fieldLabelId}>
-                    {formatLabel(props.label)}
-                </InputLabel>
-                <Select
-                    labelId={fieldLabelId}
+                <Autocomplete
                     id={fieldId}
-                    value={props.value ? props.value : ""}
+                    ref={ref}
                     name={fieldName}
-                    onChange={props.handleChange}
-                    input={<Input />}
-                    MenuProps={MenuProps}
-                >
-                    {
-                        // conditional rendering syntax
-                        props.label !== "implementation_status" && (
-                            <MenuItem key="None" value="">
-                                <ListItemText primary="None" />
-                            </MenuItem>
-                        )
-                    }
-                    {props.itemNames.map((name) => (
-                        <MenuItem key={name} value={name}>
-                            <ListItemText primary={name} />
-                        </MenuItem>
-                    ))}
-                </Select>
+                    value={props.value ? props.value : ""}
+                    options={props.itemNames}
+                    style={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label={formatLabel(props.label)} />}
+                    onChange={handleChange}
+                />
                 <FormHelperText>{props.helperText}</FormHelperText>
             </FormControl>
         </div>
 
-        // Alternative (styling pending)
-        // <div>
-        //   <TextField
-        //     id={fieldId}
-        //     select
-        //     label={capitalize(props.label)}
-        //     value={props.value}
-        //     onChange={props.handleChange}
-        //     helperText={props.helperText}
-        //     variant="outlined"
-        //   >
-        //     {props.itemNames.map((name) => (
-        //       <MenuItem key={name} value={name} MenuProps={MenuProps}>
-        //         {name}
-        //       </MenuItem>
-        //     ))}
-        //   </TextField>
-        // </div>
     );
 }

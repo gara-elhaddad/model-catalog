@@ -47,32 +47,37 @@ export default class TestAddForm extends React.Component {
         const [validFilterValuesContext] = this.context.validFilterValues;
         const [filtersContext] = this.context.filters;
 
+        let sourceData = {instances: [{}]}
+        if (this.props.duplicateData) {
+            sourceData = this.props.duplicateData;
+        }
+
         this.state = {
             // NOTE: cannot use nested state object owing to performance issues:
             // See: https://dev.to/walecloud/updating-react-nested-state-properties-ga6
             errorAddTest: null,
             isAliasNotUnique: true,
             aliasLoading: false,
-            name: this.props.duplicateData.name || "",
-            alias: this.props.duplicateData.alias || "",
-            author: this.props.duplicateData.author || [],
-            description: this.props.duplicateData.description || "",
-            data_location: this.props.duplicateData.data_location || [],
-            data_type: this.props.duplicateData.data_type || "",
-            species: this.props.duplicateData.species || "",
-            brain_region: this.props.duplicateData.brain_region || "",
-            cell_type: this.props.duplicateData.cell_type || "",
-            test_type: this.props.duplicateData.test_type || "",
-            score_type: this.props.duplicateData.score_type || "",
-            recording_modality: this.props.duplicateData.recording_modality || "",
-            implementation_status: this.props.duplicateData.implementation_status || "",
+            name: sourceData.name || "",
+            alias: sourceData.alias || "",
+            author: sourceData.author || [],
+            description: sourceData.description || "",
+            data_location: sourceData.data_location || [],
+            data_type: sourceData.data_type || "",
+            species: sourceData.species || "",
+            brain_region: sourceData.brain_region || "",
+            cell_type: sourceData.cell_type || "",
+            test_type: sourceData.test_type || "",
+            score_type: sourceData.score_type || "",
+            recording_modality: sourceData.recording_modality || "",
+            implementation_status: sourceData.implementation_status || "",
             instances: [
                 {
-                    version: this.props.duplicateData.instances[0].version || "",
-                    repository: this.props.duplicateData.instances[0].repository || "",
-                    path: this.props.duplicateData.instances[0].path || "",
-                    description: this.props.duplicateData.instances[0].description || "",
-                    parameters: this.props.duplicateData.instances[0].parameters || "",
+                    version: sourceData.instances[0].version || "",
+                    repository: sourceData.instances[0].repository || "",
+                    path: sourceData.instances[0].path || "",
+                    description: sourceData.instances[0].description || "",
+                    parameters: sourceData.instances[0].parameters || null,
                 },
             ],
             auth: authContext,

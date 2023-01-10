@@ -23,6 +23,18 @@ import {
 } from "./utils";
 import Avatar from "@material-ui/core/Avatar";
 
+
+function getDownloadURL(source_url) {
+    const url_obj = new URL(source_url)
+    if (url_obj.hostname === "object.cscs.ch") {
+        const prefix = url_obj.searchParams.get("prefix")
+        if (prefix) {
+            return `${url_obj.origin}${url_obj.pathname}/${prefix}`;
+        }
+    }
+    return source_url;
+}
+
 function openBlueNaaS(model_inst_url) {
     let match = model_inst_url.match(
         /https:\/\/object\.cscs\.ch\/v1\/AUTH_([^]+?)\//gi
@@ -215,20 +227,32 @@ function CompareIcon(props) {
 
 function AlternateRepresentationLinkOut(props) {
     if (props.instance.alternatives.length > 0) {
-        const url = props.instance.alternatives[0]; // for now, assume there's only one, fix this later
-        return (
-            <Tooltip
-                title="View this version in the KG Search app"
-                placement="top"
-            >
-                <IconButton href={url} target="_blank" rel="noopener">
-                    <Avatar
-                        alt="KG Search"
-                        src="/docs/static/img/ebrains_logo.png"
-                    />
-                </IconButton>
-            </Tooltip>
-        );
+        let link_outs = [];
+        props.instance.alternatives.forEach(url => {
+            let title = "";
+            let imgUrl = "";
+            let imgAlt = "";
+            if (url.includes("search.kg.ebrains.eu")) {
+                title = "View this version in the KG Search app";
+                imgUrl = "/docs/static/img/ebrains_logo.png";
+                imgAlt = "Link to EBRAINS Knowledge Graph Search";
+            }
+            if (url.includes("modeldb")) {
+                title = "View this version in ModelDB";
+                imgUrl = "/docs/static/img/senselab_logo.jpg";
+                imgAlt = "Link to ModelDB";
+            }
+            if (imgUrl) {
+                link_outs.push(
+                    <Tooltip title={title} placement="top">
+                        <IconButton href={url} target="_blank" rel="noopener">
+                            <Avatar alt={imgAlt} src={imgUrl} />
+                        </IconButton>
+                    </Tooltip>
+                );
+            }
+        })
+        return link_outs;
     } else {
         return "";
     }
@@ -423,7 +447,7 @@ class ModelDetailContent extends React.Component {
                                     <b>Versions</b>
                                 </Typography>
                             </Grid>
-                            <Grid container item justify="flex-end" xs={6}>
+                            <Grid container item justifyContent="flex-end" xs={6}>
                                 {addNewVersionButton}
                             </Grid>
                         </Grid>
@@ -476,6 +500,9 @@ class ModelDetailContent extends React.Component {
                                                           {instance.version}
                                                       </span>
                                                   </p>
+                                                  <AlternateRepresentationLinkOut
+                                                      instance={instance}
+                                                  />
                                                   {this.state
                                                       .instancesWithResults &&
                                                       this.props.canEdit && (
@@ -507,7 +534,7 @@ class ModelDetailContent extends React.Component {
                                                   >
                                                       <IconButton
                                                           aria-label="download code"
-                                                          href={instance.source}
+                                                          href={getDownloadURL(instance.source)}
                                                       >
                                                           <CloudDownloadIcon />
                                                       </IconButton>
@@ -527,15 +554,12 @@ class ModelDetailContent extends React.Component {
                                                               .removeModelInstanceCompare
                                                       }
                                                   />
-                                                  <AlternateRepresentationLinkOut
-                                                      instance={instance}
-                                                  />
                                               </Box>
                                           </Grid>
                                           <Grid
                                               container
                                               item
-                                              justify="flex-end"
+                                              justifyContent="flex-end"
                                               xs={6}
                                           >
                                               <Box

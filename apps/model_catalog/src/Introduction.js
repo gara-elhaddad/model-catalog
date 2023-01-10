@@ -21,16 +21,12 @@ import Button from "@material-ui/core/Button";
 import { yellow } from "@material-ui/core/colors";
 import Plotly from "plotly.js";
 import createPlotlyComponent from "react-plotly.js/factory";
-import { updateHash, corsProxy, filterKeys } from "./globals";
+import { corsProxy, filterKeys } from "./globals";
 import { formatLabel } from "./utils";
 import "./App.css";
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 
-// const openInNewTab = (url) => {
-//   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-//   if (newWindow) newWindow.opener = null;
-// };
 
 const styles = (theme) => ({
   header: {
@@ -84,8 +80,7 @@ function MediaCard(props) {
       >
         <CardActionArea
           onClick={() => {
-            updateHash("model_id." + props.id);
-            window.location.reload();
+            props.onClick(props.id);
           }}
         >
           <CardMedia
@@ -134,8 +129,7 @@ function MediaCard(props) {
             color="primary"
             style={{ fontWeight: "bolder" }}
             onClick={() => {
-              updateHash("model_id." + props.id);
-              window.location.reload();
+              props.onClick(props.id);
             }}
           >
             View Model
@@ -405,48 +399,50 @@ class Introduction extends React.Component {
               <MediaCard
                 id="3772094a-8e2d-4075-8f05-9be62c8d8a5d"
                 image_title={"Golding_et_al_2001_dichotomy"}
-                title={"Golding_et_al_2001_dichotomy"}
+                title={"Dichotomy of action-potential backpropagation in CA1 pyramidal neuron dendrites (Golding et al 2001)"}
                 citation={
                   "Nace L. Golding, William L. Kath, Nelson Spruston, Sára Sáray"
                 }
+                onClick={this.props.handleSelectFeaturedModel}
               />
               <MediaCard
                 id="528ec0e6-2f21-413c-9abd-d131f7150882"
                 image_title={"CA1_Bianchi_2012"}
-                title={"CA1_Bianchi_2012"}
+                title={"Mechanisms of the depolarization block in CA1 pyramidal neurons - Bianchi et al., 2012"}
                 citation={
                   "Daniela Bianchi, Addolorata Marasco, Alessandro Limongiello, Cristina Marchetti, Hélène Marie, Brunello Tirozzi, Michele Migliore, Sára Sáray"
                 }
+                onClick={this.props.handleSelectFeaturedModel}
               />
               <MediaCard
                 id="09cbcd03-1e39-497a-a34e-090dde3617d8"
                 image_title={"Basal ganglia network model"}
                 title={"Basal ganglia network model"}
                 citation={"Shreyas M Suryanarayana"}
+                onClick={this.props.handleSelectFeaturedModel}
               />
               <MediaCard
                 id="1ccc23ec-d3a6-43b6-b96f-41e9c4221a15"
-                image_title={
-                  "SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"
-                }
-                title={
-                  "SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"
-                }
+                image_title={"SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"}
+                title={"SpiNNCer: Neuromorphic cerebellum implementation on SpiNNaker"}
                 citation={
                   "Petruț Antoniu Bogdan, Beatrice Marcinnò, Claudia Casellato, Stefano Casali, Andrew G. D. Rowley, Michael Hopkins, Francesco Leporati, Egidio D'Angelo, Oliver Rhodes"
                 }
+                onClick={this.props.handleSelectFeaturedModel}
               />
               <MediaCard
                 id="c28c4e1f-0ef3-4ccd-9a81-8e792aa349a4"
                 image_title={"Model of two-photon calcium signals"}
                 title={"Model of two-photon calcium signals"}
                 citation={"Nuria Tort-Colet, Alain Destexhe"}
+                onClick={this.props.handleSelectFeaturedModel}
               />
               <MediaCard
                 id="03d26f01-9197-4fae-97d7-09b33274b76f"
                 image_title={"CA1_int_cNAC_060314AM2_20190328165336"}
                 title={"CA1_int_cNAC_060314AM2_20190328165336"}
                 citation={"Rosanna Migliore"}
+                onClick={this.props.handleSelectFeaturedModel}
               />
             </Slider>
           </Grid>
@@ -470,7 +466,7 @@ class Introduction extends React.Component {
               spacing={2}
               direction="row"
               alignItems="center"
-              justify="center"
+              justifyContent="center"
             >
               {[
                 "species",

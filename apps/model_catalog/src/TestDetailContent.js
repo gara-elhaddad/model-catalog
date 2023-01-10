@@ -304,7 +304,7 @@ class TestDetailContent extends React.Component {
                                     <b>Versions</b>
                                 </Typography>
                             </Grid>
-                            <Grid container item justify="flex-end" xs={6}>
+                            <Grid container item justifyContent="flex-end" xs={6}>
                                 {addNewVersionButton}
                             </Grid>
                         </Grid>
@@ -401,7 +401,7 @@ class TestDetailContent extends React.Component {
                                           <Grid
                                               container
                                               item
-                                              justify="flex-end"
+                                              justifyContent="flex-end"
                                               xs={6}
                                           >
                                               <Box
