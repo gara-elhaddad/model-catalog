@@ -52,8 +52,8 @@ function checkAuth(main) {
     if (isStandaloneApp) {
         console.log('This is a standalone app...');
         if (isAnonymous) {
-            console.log('...which is not authenticated, starting app without authentication')
-            return main(keycloak);
+            console.log('...which is not authenticated, starting login...');
+            return login(YOUR_APP_SCOPES);
         }
         if (isAuthenticated) {
             console.log('...which is authenticated, starting app with authentication');
