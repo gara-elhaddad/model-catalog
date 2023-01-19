@@ -64,7 +64,6 @@ export default class TestAddForm extends React.Component {
             project_id: sourceData.project_id || "",
             description: sourceData.description || "",
             data_location: sourceData.data_location || [],
-            data_type: sourceData.data_type || "",
             species: sourceData.species || "",
             brain_region: sourceData.brain_region || "",
             cell_type: sourceData.cell_type || "",
@@ -134,7 +133,6 @@ export default class TestAddForm extends React.Component {
             project_id: this.state.project_id,
             description: this.state.description,
             data_location: this.state.data_location,
-            data_type: this.state.data_type,
             species: this.state.species,
             brain_region: this.state.brain_region,
             cell_type: this.state.cell_type,
@@ -404,17 +402,6 @@ export default class TestAddForm extends React.Component {
                                                 </InputAdornment>
                                             ),
                                         }}
-                                    />
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <TextField
-                                        name="data_type"
-                                        label="Data Type"
-                                        defaultValue={this.state.data_type}
-                                        onBlur={this.handleFieldChange}
-                                        variant="outlined"
-                                        fullWidth={true}
-                                        helperText="Type of target experimental data"
                                     />
                                 </Grid>
                                 {filterTestKeys.map((filter) => (
