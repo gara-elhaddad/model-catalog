@@ -59,7 +59,6 @@ export default class ModelEditForm extends React.Component {
             alias: "",
             author: [],
             owner: [],
-            private: false,
             project_id: "",
             description: "",
             species: "",
@@ -146,7 +145,6 @@ export default class ModelEditForm extends React.Component {
             alias: this.state.alias,
             author: this.state.author,
             owner: this.state.owner,
-            private: this.state.private,
             project_id: this.state.project_id,
             description: this.state.description,
             species: this.state.species,
@@ -220,9 +218,7 @@ export default class ModelEditForm extends React.Component {
         let value = target.value;
         const name = target.name;
 
-        if (name === "private") {
-            value = !target.checked;
-        } else if (name === "alias") {
+        if (name === "alias") {
             this.checkAliasUnique(value);
         }
         this.setState({
@@ -296,7 +292,7 @@ export default class ModelEditForm extends React.Component {
                                         helperText="Enter author names separated by semicolon: firstName1 lastName1; firstName2 lastName2"
                                     />
                                 </Grid>
-                                <Grid item xs={9}>
+                                <Grid item xs={12}>
                                     <TextField
                                         name="alias"
                                         label="Model alias / Short name"
@@ -345,28 +341,6 @@ export default class ModelEditForm extends React.Component {
                                                 </InputAdornment>
                                             ),
                                         }}
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormLabel component="legend">
-                                        Make model public?
-                                    </FormLabel>
-                                    <FormControlLabel
-                                        labelPlacement="bottom"
-                                        control={
-                                            <Switch
-                                                checked={!this.state.private}
-                                                onChange={
-                                                    this.handleFieldChange
-                                                }
-                                                name="private"
-                                            />
-                                        }
-                                        label={
-                                            this.state.private
-                                                ? "Private"
-                                                : "Public"
-                                        }
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

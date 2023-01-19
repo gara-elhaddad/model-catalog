@@ -64,7 +64,6 @@ export default class ModelAddForm extends React.Component {
             alias: sourceData.alias || "",
             author: sourceData.author || [],
             owner: sourceData.owner || [],
-            private: sourceData.private || false,
             project_id: sourceData.project_id || "",
             description: sourceData.description || "",
             species: sourceData.species || "",
@@ -157,7 +156,6 @@ export default class ModelAddForm extends React.Component {
                 this.state.owner.length > 0
                     ? this.state.owner
                     : [{ given_name: "", family_name: "" }],
-            private: this.state.private,
             project_id: this.state.project_id,
             description: this.state.description,
             species: this.state.species,
@@ -233,9 +231,7 @@ export default class ModelAddForm extends React.Component {
         let value = target.value;
         const name = target.name;
 
-        if (name === "private") {
-            value = !target.checked;
-        } else if (name === "alias") {
+        if (name === "alias") {
             this.checkAliasUnique(value);
         } else if (name === "model_scope") {
             // if ((value !== "single cell") && (!value.startsWith('network'))) {
@@ -328,7 +324,7 @@ export default class ModelAddForm extends React.Component {
                                         helperText="Enter author names separated by semicolon: firstName1 lastName1; firstName2 lastName2"
                                     />
                                 </Grid>
-                                <Grid item xs={9}>
+                                <Grid item xs={12}>
                                     <TextField
                                         name="alias"
                                         label="Model alias / Short name"
@@ -377,28 +373,6 @@ export default class ModelAddForm extends React.Component {
                                                 </InputAdornment>
                                             ),
                                         }}
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <FormLabel component="legend">
-                                        Make model public?
-                                    </FormLabel>
-                                    <FormControlLabel
-                                        labelPlacement="bottom"
-                                        control={
-                                            <Switch
-                                                checked={!this.state.private}
-                                                onChange={
-                                                    this.handleFieldChange
-                                                }
-                                                name="private"
-                                            />
-                                        }
-                                        label={
-                                            this.state.private
-                                                ? "Private"
-                                                : "Public"
-                                        }
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
