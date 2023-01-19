@@ -138,6 +138,7 @@ class TestDetail extends React.Component {
             this.removeTestInstanceCompare.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleTabChange = this.handleTabChange.bind(this);
+        this.checkEditAccess = this.checkEditAccess.bind(this);
         this.getExtendedData = this.getExtendedData.bind(this);
     }
 
@@ -145,6 +146,7 @@ class TestDetail extends React.Component {
         if (!DevMode) {
             this.getExtendedData();
             this.getTestResults();
+            this.checkEditAccess(this.context.status);
         }
     }
 
@@ -357,6 +359,33 @@ class TestDetail extends React.Component {
             });
     };
 
+    checkEditAccess(status) {
+        const [statusMessage] = status;
+        if (statusMessage.includes("read-only")) {
+            return
+        }
+        let test = this.props.testData;
+        console.log("Checking edit access");
+        datastore
+            .getProjects()
+            .then((projects) => {
+                projects.forEach((projectID) => {
+                    if (
+                        projectID === test.project_id ||
+                        projectID === ADMIN_PROJECT_ID
+                    ) {
+                        this.setState({
+                            canEdit: true,
+                        });
+                    }
+                });
+            })
+            .catch((err) => {
+                console.log("Error: ", err.message);
+            });
+    }
+
+
     render() {
         const { classes } = this.props;
         const [status] = this.context.status;
@@ -380,9 +409,6 @@ class TestDetail extends React.Component {
                                 id={this.props.testData.id}
                                 alias={this.props.testData.alias}
                                 dateCreated={this.props.testData.date_created}
-                                implementation_status={
-                                    this.props.testData.implementation_status
-                                }
                                 testData={this.props.testData}
                                 updateCurrentTestData={
                                     this.updateCurrentTestData

@@ -57,6 +57,7 @@ export default class TestEditForm extends React.Component {
             name: "",
             alias: "",
             author: [],
+            project_id: "",
             description: "",
             data_location: [],
             data_type: "",
@@ -131,6 +132,7 @@ export default class TestEditForm extends React.Component {
             name: this.state.name,
             alias: this.state.alias,
             author: this.state.author,
+            project_id: this.state.project_id,
             description: this.state.description,
             data_location: this.state.data_location,
             data_type: this.state.data_type,
@@ -321,6 +323,16 @@ export default class TestEditForm extends React.Component {
                                                 </InputAdornment>
                                             ),
                                         }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <SingleSelect
+                                        name="project_id"
+                                        itemNames={this.state.projects}
+                                        label="Collab"
+                                        value={this.state.project_id}
+                                        helperText="Please choose the Collab you will use to set access permissions. You may need to create a new Collab."
+                                        handleChange={this.handleFieldChange}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

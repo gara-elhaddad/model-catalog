@@ -224,6 +224,7 @@ class TestTable extends React.Component {
                                 item.alias,
                                 formatAuthors(item.author),
                                 item.implementation_status,
+                                item.project_id,
                                 item.species,
                                 item.brain_region,
                                 item.cell_type,
