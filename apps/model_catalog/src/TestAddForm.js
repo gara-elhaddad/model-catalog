@@ -42,6 +42,7 @@ export default class TestAddForm extends React.Component {
         this.createPayload = this.createPayload.bind(this);
         this.checkRequirements = this.checkRequirements.bind(this);
         this.checkAliasUnique = this.checkAliasUnique.bind(this);
+        this.getProjectList = this.getProjectList.bind(this);
 
         const [authContext] = this.context.auth;
         const [validFilterValuesContext] = this.context.validFilterValues;
@@ -83,8 +84,10 @@ export default class TestAddForm extends React.Component {
             filters: filtersContext,
             validFilterValues: validFilterValuesContext,
             loading: false,
+            projects: []
         };
 
+        this.getProjectList();
         this.handleErrorAddDialogClose =
             this.handleErrorAddDialogClose.bind(this);
     }
@@ -120,6 +123,21 @@ export default class TestAddForm extends React.Component {
                 aliasLoading: false,
             });
         });
+    }
+
+    getProjectList() {
+        datastore
+            .getProjects()
+            .then((editableProjects) => {
+                this.setState({
+                    projects: editableProjects,
+                });
+                console.log("Setting projects");
+                console.log(editableProjects);
+            })
+            .catch((err) => {
+                console.log("Error: ", err.message);
+            });
     }
 
     createPayload() {

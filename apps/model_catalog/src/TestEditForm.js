@@ -40,6 +40,7 @@ export default class TestEditForm extends React.Component {
         this.createPayload = this.createPayload.bind(this);
         this.checkRequirements = this.checkRequirements.bind(this);
         this.checkAliasUnique = this.checkAliasUnique.bind(this);
+        this.getProjectList = this.getProjectList.bind(this);
 
         const [authContext] = this.context.auth;
         const [validFilterValuesContext] = this.context.validFilterValues;
@@ -70,8 +71,9 @@ export default class TestEditForm extends React.Component {
             filters: filtersContext,
             validFilterValues: validFilterValuesContext,
             loading: false,
+            projects: []
         };
-
+        this.getProjectList();
         this.handleErrorEditDialogClose =
             this.handleErrorEditDialogClose.bind(this);
     }
@@ -121,6 +123,19 @@ export default class TestEditForm extends React.Component {
                 aliasLoading: false,
             });
         });
+    }
+
+    getProjectList() {
+        datastore
+            .getProjects()
+            .then((editableProjects) => {
+                this.setState({
+                    projects: editableProjects,
+                });
+            })
+            .catch((err) => {
+                console.log("Error: ", err.message);
+            });
     }
 
     createPayload() {
