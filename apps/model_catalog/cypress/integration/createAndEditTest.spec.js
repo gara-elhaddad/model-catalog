@@ -38,7 +38,6 @@ function addTestEntry() {
         test_type: "network activity",
         score_type: "Other",
         recording_modality: "electrophysiology",
-        implementation_status: "in development",
         instance: {
             version: "0.1.2",
             repository: "https://example.com/path/to/my/code",
@@ -68,10 +67,6 @@ function addTestEntry() {
     cy.get("#select-recording_modality").click();
     cy.get(".MuiListItemText-primary")
         .contains(testData.recording_modality)
-        .click();
-    cy.get("#select-implementation_status").click();
-    cy.get(".MuiListItemText-primary")
-        .contains(testData.implementation_status)
         .click();
     cy.get("input[name=version]").type(testData.instance.version);
     cy.get("input[name=repository]").type(testData.instance.repository);

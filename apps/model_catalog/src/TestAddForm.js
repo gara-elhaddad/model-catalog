@@ -70,7 +70,6 @@ export default class TestAddForm extends React.Component {
             test_type: sourceData.test_type || "",
             score_type: sourceData.score_type || "",
             recording_modality: sourceData.recording_modality || "",
-            implementation_status: sourceData.implementation_status || "",
             instances: [
                 {
                     version: sourceData.instances[0].version || "",
@@ -140,7 +139,6 @@ export default class TestAddForm extends React.Component {
             test_type: this.state.test_type,
             score_type: this.state.score_type,
             recording_modality: this.state.recording_modality,
-            implementation_status: this.state.implementation_status,
             instances: this.state.instances,
         };
         // to allow tests to be created without instances; e.g. proposals for new tests
@@ -170,11 +168,6 @@ export default class TestAddForm extends React.Component {
         ) {
             error = error ? error + "\n" : "";
             error += "Test 'alias' has to be unique!";
-        }
-        // rule 3: ensure that implementation_status has been specified
-        if (!payload.implementation_status) {
-            error = error ? error + "\n" : "";
-            error += "Test 'implementation status' has to be specified!";
         }
 
         if (error) {

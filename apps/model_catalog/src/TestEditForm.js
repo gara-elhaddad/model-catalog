@@ -66,7 +66,6 @@ export default class TestEditForm extends React.Component {
             test_type: "",
             score_type: "",
             recording_modality: "",
-            implementation_status: "",
             auth: authContext,
             filters: filtersContext,
             validFilterValues: validFilterValuesContext,
@@ -141,7 +140,6 @@ export default class TestEditForm extends React.Component {
             test_type: this.state.test_type,
             score_type: this.state.score_type,
             recording_modality: this.state.recording_modality,
-            implementation_status: this.state.implementation_status,
         };
         return replaceEmptyStringsWithNull(payload);
     }
@@ -161,11 +159,6 @@ export default class TestEditForm extends React.Component {
         ) {
             error = error ? error + "\n" : "";
             error += "Test 'alias' has to be unique!";
-        }
-        // rule 3: ensure that implementation_status has been specified
-        if (!payload.implementation_status) {
-            error = error ? error + "\n" : "";
-            error += "Test 'implementation status' has to be specified!";
         }
 
         if (error) {
