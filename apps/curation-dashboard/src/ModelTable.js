@@ -190,6 +190,7 @@ function addAdditionalFields(originalModels) {
         model.numFailedChecks = sumFailures(model.checks);
     });
     console.log("Added additional fields");
+    console.log(models);
     return models;
 }
 
