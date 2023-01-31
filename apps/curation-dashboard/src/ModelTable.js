@@ -129,11 +129,23 @@ function getCodeLocations(model) {
 }
 
 function AlternativeLink(url) {
-    return (
-        <IconButton href={url} target="_blank" rel="noopener">
-            <Avatar alt="KG Search" src="/docs/static/img/ebrains_logo.png" />
-        </IconButton>
-    )
+    if (url.includes("search.kg")) {
+        return (
+            <IconButton href={url} target="_blank" rel="noopener">
+                <Avatar alt="KG Search" src="/docs/static/img/ebrains_logo_colour.png" />
+            </IconButton>
+        )
+    } else if (url.toLowerCase().includes("modeldb")) {
+        return (
+            <IconButton href={url} target="_blank" rel="noopener">
+                <Avatar alt="ModelDB" src="/docs/static/img/senselab_logo.jpg" />
+            </IconButton>
+        )
+    } else {
+        return (
+            <Link href={url} target="_blank" rel="noopener">Link</Link>
+        )
+    }
 }
 
 
@@ -190,7 +202,6 @@ function addAdditionalFields(originalModels) {
         model.numFailedChecks = sumFailures(model.checks);
     });
     console.log("Added additional fields");
-    console.log(models);
     return models;
 }
 
@@ -289,7 +300,7 @@ export default function ModelTable(props) {
         { label: "Name", sortAttr: "name", type: "string" },
         { label: "Creation date", sortAttr: "date_created", type: "string" },
         { label: "No. of versions", sortAttr: "numVersions", type: "number" },
-        { label: "KG links", sortAttr: "alternativesStr", type: "string" },
+        { label: "Links", sortAttr: "alternativesStr", type: "string" },
         { label: "License(s)", sortAttr: "licensesStr", type: "string" },
         { label: "Code format(s)", sortAttr: "codeFormatsStr", type: "string" },
         { label: "Code location", sortAttr: "codeLocationsStr", type: "string" },
