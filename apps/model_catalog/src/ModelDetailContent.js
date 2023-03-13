@@ -18,7 +18,7 @@ import ModelInstanceEditForm from "./ModelInstanceEditForm";
 import Theme from "./theme";
 import {
     copyToClipboard,
-    formatTimeStampToLongString,
+    formatTimeStampAsDate,
     showNotification,
 } from "./utils";
 import Avatar from "@material-ui/core/Avatar";
@@ -602,7 +602,7 @@ class ModelDetailContent extends React.Component {
                                               color="textSecondary"
                                               style={{ marginBottom: 10 }}
                                           >
-                                              {formatTimeStampToLongString(
+                                              {formatTimeStampAsDate(
                                                   instance.timestamp
                                               )}
                                           </Typography>

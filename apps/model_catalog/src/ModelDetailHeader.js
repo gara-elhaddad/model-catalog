@@ -18,7 +18,7 @@ import WarningBox from "./WarningBox";
 import Theme from "./theme";
 import {
     copyToClipboard,
-    formatTimeStampToLongString,
+    formatTimeStampAsDate,
     showNotification,
 } from "./utils";
 
@@ -345,7 +345,7 @@ class ModelDetailHeader extends React.Component {
                     >
                         Created:{" "}
                         <b>
-                            {formatTimeStampToLongString(
+                            {formatTimeStampAsDate(
                                 this.props.dateCreated
                             )}
                         </b>

@@ -42,6 +42,15 @@ export function formatTimeStampToLongString(ISOtimestamp) {
     }
 }
 
+export function formatTimeStampAsDate(ISOtimestamp) {
+    if (ISOtimestamp) {
+        const d = new Date(ISOtimestamp);
+        return d.toDateString();
+    } else {
+        return "";
+    }
+}
+
 export function formatTimeStampToCompact(ISOtimestamp) {
     if (ISOtimestamp) {
         return moment(ISOtimestamp).format("DD-MM-YYYY (HH:MM)");
