@@ -321,7 +321,7 @@ export default class ModelAddForm extends React.Component {
                                         variant="outlined"
                                         fullWidth={true}
                                         newChipKeys={["Enter", "Tab", ";"]}
-                                        helperText="Enter author names separated by semicolon: firstName1 lastName1; firstName2 lastName2"
+                                        helperText="Enter custodian names separated by semicolon: firstName1 lastName1; firstName2 lastName2"
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

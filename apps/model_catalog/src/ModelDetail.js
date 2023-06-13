@@ -500,7 +500,7 @@ class ModelDetail extends React.Component {
                                                     .abstraction_level
                                             }
                                             projectID={
-                                                this.props.private ? this.props.modelData.project_id : null
+                                                this.props.modelData.private ? this.props.modelData.project_id : null
                                             }
                                             organization={
                                                 this.props.modelData

@@ -63,7 +63,6 @@ export default class ModelInstanceAddForm extends React.Component {
     }
 
     handleCancel() {
-        console.log("Hello");
         this.props.onClose();
     }
 
