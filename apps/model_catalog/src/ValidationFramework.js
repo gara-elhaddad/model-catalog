@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
+import AddIcon from "@material-ui/icons/AddBox";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
@@ -405,6 +406,7 @@ class ValidationFramework extends React.Component {
             .getValidFilterValues()
             .then((vocab) => {
                 console.log("Retrieved valid filter values");
+                console.log(vocab);
                 const [, setContextValidFilterValues] =
                     this.context.validFilterValues;
                 setContextValidFilterValues(vocab);
@@ -1180,6 +1182,14 @@ class ValidationFramework extends React.Component {
                                         aria-label="Compare results"
                                     >
                                         <AccountTreeIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title={"Add a new model"}>
+                                    <IconButton
+                                        onClick={this.openAddModelForm}
+                                        aria-label="Add a new model"
+                                    >
+                                        <AddIcon />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title={"Open Documentation"}>
