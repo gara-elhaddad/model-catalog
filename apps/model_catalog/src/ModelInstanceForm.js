@@ -63,14 +63,14 @@ export default class ModelInstanceForm extends React.Component {
                             label={filter}
                             value={this.props.value[filter]}
                             handleChange={this.handleFieldChange}
-                            helperText="For guidance on choosing a licence, see https://choosealicense.com"
+                            helperText={filter === "license" ? "For guidance on choosing a licence, see https://choosealicense.com" : ""}
                         />
                     </Grid>
                 ))}
                 <Grid item xs={12}>
                     <TextField
                         name="description"
-                        label="description"
+                        label="Changes"
                         defaultValue={this.props.value.description}
                         onBlur={this.handleFieldChange}
                         variant="outlined"
@@ -80,24 +80,13 @@ export default class ModelInstanceForm extends React.Component {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        name="code_format"
-                        label="code_format"
-                        defaultValue={this.props.value.code_format}
-                        onBlur={this.handleFieldChange}
-                        variant="outlined"
-                        fullWidth={true}
-                        helperText="(optional)"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
                         name="parameters"
-                        label="parameters"
+                        label="Parameters"
                         defaultValue={this.props.value.parameters}
                         onBlur={this.handleFieldChange}
                         variant="outlined"
                         fullWidth={true}
-                        helperText="(optional) Parameterization of the model"
+                        helperText="(optional) Location of a parameter file for the model"
                     />
                 </Grid>
                 {this.props.modelScope === "single cell" ? (
@@ -105,7 +94,7 @@ export default class ModelInstanceForm extends React.Component {
                     <Grid item xs={12}>
                         <TextField
                             name="morphology"
-                            label="morphology"
+                            label="Morphology"
                             defaultValue={this.props.value.morphology}
                             onBlur={this.handleFieldChange}
                             variant="outlined"

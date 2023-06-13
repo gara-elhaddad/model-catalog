@@ -465,6 +465,7 @@ class DataStore {
         if (this.vocab === null) {
             return this.get(`${this.baseUrl}/vocab/`, source).then((res) => {
                 this.vocab = { ...res.data };
+                this.vocab["code_format"] = this.vocab["content_type"]
                 return this.vocab;
             });
         } else {

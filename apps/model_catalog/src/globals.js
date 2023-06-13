@@ -31,7 +31,7 @@ export const filterModelKeys = [
 export const filterTestKeys = [
     ...new Set([...filterCommonKeys, ...filterTestOnlyKeys]),
 ];
-export const filterModelInstanceKeys = ["license"];
+export const filterModelInstanceKeys = ["license", "code_format"];
 export const filterTestInstanceKeys = [];
 export const displayValid = ["Only Models", "Models and Tests", "Only Tests"];
 export const queryValid = [
