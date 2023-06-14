@@ -463,9 +463,10 @@ class DataStore {
 
     async getValidFilterValues(source = null) {
         if (this.vocab === null) {
-            return this.get(`${this.baseUrl}/vocab/`, source).then((res) => {
+            return this.get(`${this.baseUrl}/vocab/`, source).then(async (res) => {
                 this.vocab = { ...res.data };
                 this.vocab["code_format"] = this.vocab["content_type"]
+                this.vocab["project_id"] = await this.getProjects()
                 return this.vocab;
             });
         } else {

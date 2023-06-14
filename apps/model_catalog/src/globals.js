@@ -10,7 +10,7 @@ export const isIframe = window !== window.parent;
 export const isFramedApp = isIframe && isParent;
 export const settingsDelimiter = ",";
 
-export const filterCommonKeys = ["species", "brain_region", "cell_type"];
+export const filterCommonKeys = ["project_id", "species", "brain_region", "cell_type"];
 export const filterModelOnlyKeys = ["model_scope", "abstraction_level"];
 export const filterTestOnlyKeys = [
     "test_type",

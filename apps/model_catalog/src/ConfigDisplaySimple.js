@@ -12,6 +12,7 @@ import BrokenImageIcon from "@material-ui/icons/BrokenImage";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import MicIcon from "@material-ui/icons/Mic";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
+import PeopleIcon from "@material-ui/icons/People";
 
 import { formatLabel } from "./utils";
 import { filterKeys, filterModelKeys, filterTestKeys } from "./globals";
@@ -45,6 +46,9 @@ const iconLookup = {
     implementation_status: () => {
         return <DonutLargeIcon />;
     },
+    project_id: () => {
+        return <PeopleIcon />;
+    }
 };
 
 const useStyles = makeStyles((theme) => ({
