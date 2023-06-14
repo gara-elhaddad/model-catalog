@@ -105,7 +105,13 @@ const retrieveFilters = (context) => {
             filters[key] = [];
         }
     }
-
+    if (isFramedApp && filtersEmpty(filters)) {
+        // if we're installed in a collab with no filters set
+        // set the collab id as project_id
+        filters["project_id"] = [searchParams.get("clb-collab-id")];
+    }
+    console.log(searchParams);
+    console.log(filters);
     const [, setContextFilters] = context.filters;
     setContextFilters(filters);
     return filters;
