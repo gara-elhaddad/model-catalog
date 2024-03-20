@@ -431,7 +431,7 @@ class ValidationFramework extends React.Component {
 
         if (window.location.hash) {
             let proceed = true;
-            const param = window.location.hash.slice(1);
+            const param = window.location.hash.slice(1).split("&")[0];
             const key = param.split(".")[0];
             const value = param.substr(param.indexOf(".") + 1);
             console.log(param);
