@@ -434,6 +434,9 @@ class ValidationFramework extends React.Component {
             const param = window.location.hash.slice(1);
             const key = param.split(".")[0];
             const value = param.substr(param.indexOf(".") + 1);
+            console.log(param);
+            console.log(key);
+            console.log(value);
             let error_message = "";
 
             if (!queryValid.includes(key)) {
