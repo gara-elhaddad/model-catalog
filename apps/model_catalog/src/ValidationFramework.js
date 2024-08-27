@@ -430,53 +430,61 @@ class ValidationFramework extends React.Component {
             });
 
         if (window.location.hash) {
-            let proceed = true;
-            const param = window.location.hash.slice(1).split("&")[0];
-            const key = param.split(".")[0];
-            const value = param.substr(param.indexOf(".") + 1);
-            console.log(param);
-            console.log(key);
-            console.log(value);
-            let error_message = "";
 
-            if (!queryValid.includes(key)) {
-                error_message =
-                    "URL query parameter must be one of the following:\n" +
-                    queryValid.join(", ");
-                this.setState({ errorGet: error_message });
-                proceed = false;
-                updateHash("");
+            if (window.location.hash.includes("iss=")) {
+              window.location.hash = window.location.hash.replace("iss=https%3A%2F%2Fiam.ebrains.eu%2Fauth%2Frealms%2Fhbp", "");
             }
-            if (proceed && key.endsWith("_id") && !isUUID(value)) {
-                error_message =
-                    "Value for query parameter '" +
-                    key +
-                    "' is not a valid UUID.\n Value: (" +
-                    value +
-                    ")";
-                this.setState({ errorGet: error_message });
-                proceed = false;
-                updateHash("");
-            }
-            if (proceed) {
-                this.setState({ loadingOpen: true });
-                if (key.startsWith("model")) {
-                    // get a specific model
-                    if (key === "model_instance_id") {
-                        this.getModelFromInstance(value);
-                    } else {
-                        this.getModel(key, value);
+            const param = window.location.hash.slice(1).replace("&", "");
+
+            if (param.length > 0) {
+                let proceed = true;
+                const key = param.split(".")[0];
+                const value = param.substr(param.indexOf(".") + 1);
+                console.log(param);
+                console.log(key);
+                console.log(value);
+                let error_message = "";
+
+                if (!queryValid.includes(key)) {
+                    error_message =
+                        "URL query parameter must be one of the following:\n" +
+                        queryValid.join(", ");
+                    this.setState({ errorGet: error_message });
+                    proceed = false;
+                    updateHash("");
+                }
+                if (proceed && key.endsWith("_id") && !isUUID(value)) {
+                    error_message =
+                        "Value for query parameter '" +
+                        key +
+                        "' is not a valid UUID.\n Value: (" +
+                        value +
+                        ")";
+                    this.setState({ errorGet: error_message });
+                    proceed = false;
+                    updateHash("");
+                }
+
+                if (proceed) {
+                    this.setState({ loadingOpen: true });
+                    if (key.startsWith("model")) {
+                        // get a specific model
+                        if (key === "model_instance_id") {
+                            this.getModelFromInstance(value);
+                        } else {
+                            this.getModel(key, value);
+                        }
+                    } else if (key.startsWith("test")) {
+                        // get a specific test
+                        if (key === "test_instance_id") {
+                            this.getTestFromInstance(value);
+                        } else {
+                            this.getTest(key, value);
+                        }
+                    } else if (key === "result_id") {
+                        // get a specific result
+                        this.getResult(key, value);
                     }
-                } else if (key.startsWith("test")) {
-                    // get a specific test
-                    if (key === "test_instance_id") {
-                        this.getTestFromInstance(value);
-                    } else {
-                        this.getTest(key, value);
-                    }
-                } else if (key === "result_id") {
-                    // get a specific result
-                    this.getResult(key, value);
                 }
             }
         }
