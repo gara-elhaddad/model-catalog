@@ -29,5 +29,4 @@ COPY deployment/nginx-app.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /model-catalog/build /usr/share/nginx/html/model-catalog
 COPY --from=build /curation-dashboard/build /usr/share/nginx/html/curation-dashboard
 EXPOSE 80
-EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
