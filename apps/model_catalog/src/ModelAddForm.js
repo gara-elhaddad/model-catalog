@@ -280,7 +280,7 @@ export default class ModelAddForm extends React.Component {
                     }}
                 >
                     <h2>Add a new model to the catalog</h2>
-                    <IconButton href="https://model-catalog.brainsimulation.eu/docs/share.html">
+                    <IconButton href="https://model-catalog.apps.ebrains.eu/docs/share.html">
                         <HelpIcon />
                     </IconButton>
                 </DialogTitle>

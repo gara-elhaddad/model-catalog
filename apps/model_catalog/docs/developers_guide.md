@@ -1,6 +1,6 @@
 # EBRAINS Model Catalog app: Guide for Developers and Maintainers
 
-The [Model Catalog app](https://model-catalog.brainsimulation.eu) is a web-browser-based graphical user interface for the EBRAINS Model Validation Framework.
+The [Model Catalog app](https://model-catalog.apps.ebrains.eu) is a web-browser-based graphical user interface for the EBRAINS Model Validation Framework.
 
 This document is intended for developers and maintainers of the app.
 

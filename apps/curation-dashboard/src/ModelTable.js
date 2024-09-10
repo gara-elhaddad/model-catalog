@@ -350,7 +350,7 @@ export default function ModelTable(props) {
                                     <Tooltip title={model.uri}><span>{model.id.slice(0, 7)}...</span></Tooltip>
                                 </TableCell>
                                 <TableCell>
-                                    <Link href={`https://model-catalog.brainsimulation.eu/#model_id.${model.id}`} target="_blank">
+                                    <Link href={`https://model-catalog.apps.ebrains.eu/#model_id.${model.id}`} target="_blank">
                                         {model.name}
                                     </Link>
                                 </TableCell>
