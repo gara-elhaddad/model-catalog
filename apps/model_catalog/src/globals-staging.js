@@ -46,9 +46,7 @@ export const queryValid = [
 export const ADMIN_PROJECT_ID = "model-validation";
 
 // Since Collaboratory v2 storage and CSCS storage gives CORS related issues
-export const corsProxy = "https://corsproxy.hbpneuromorphic.eu/";
-// previously used https://corsproxy-sa.herokuapp.com/, https://cors-anywhere.herokuapp.com/ - but now has request limits
-// other options: https://cors-clear.herokuapp.com/, https://cors-fixer.herokuapp.com/, https://cors-handler.herokuapp.com/
+export const corsProxy = "https://corsproxy.apps.tc.humanbrainproject.eu/";
 
 export const updateHash = (value) => {
     window.location.hash = value;

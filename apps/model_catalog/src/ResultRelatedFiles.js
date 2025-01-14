@@ -65,6 +65,7 @@ class ResultFile extends React.Component {
         if (this.state.url.includes("drive.ebrains.eu")) {
             config["headers"] = {
                 Authorization: "Bearer " + this.state.auth.token,
+                'x-requested-with': 'XMLHttpRequest',
             };
             const url_parts = this.state.url.match(".*/lib/(.*)/file(/.*)");
             query_url =

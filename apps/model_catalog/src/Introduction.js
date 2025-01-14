@@ -204,9 +204,14 @@ class Introduction extends React.Component {
 
   componentDidMount() {
     this.mounted = true;
+    const headers = {
+      //'origin: ?,
+      'x-requested-with': 'XMLHttpRequest',
+    };
     fetch(
       corsProxy +
-      "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/VF_paper_demo/vf_stats/models_stats.json"
+      "https://object.cscs.ch/v1/AUTH_c0a333ecf7c045809321ce9d9ecdfdea/VF_paper_demo/vf_stats/models_stats.json",
+      { headers }
     )
       .then((response) => response.json())
       .then((jsonData) => {
