@@ -152,6 +152,13 @@ export default class ResultDetail extends React.Component {
 
     render() {
         let result = this.props.result;
+        console.log('result:');
+        console.log(result)
+        console.log('result storage:')
+        console.log(result.results_storage)
+        console.log('bucket storage:')
+        console.log(result.project_id)
+
         if (!result.model) {
             result.model = {};
             result.model_instance = {};
@@ -214,6 +221,8 @@ export default class ResultDetail extends React.Component {
                             <TabPanel value={this.state.tabValue} index={1}>
                                 <ResultRelatedFiles
                                     result_files={result.results_storage}
+                                    project_id={result.project_id}
+                                    id={result.id}
                                 />
                             </TabPanel>
                             <TabPanel value={this.state.tabValue} index={2}>
